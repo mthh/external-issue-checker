@@ -3,7 +3,7 @@ import sys
 import typer
 from git import InvalidGitRepositoryError
 from rich import print
-from .git_utils import get_commits_with_external_refs
+from .git_utils import get_commits_with_external_refs, get_repo_info
 from .github_api import gh_check_issue_status
 
 app = typer.Typer(
@@ -46,10 +46,14 @@ def cli_scan(
         print(f"[red]Unexpected error: {e}[/]")
         sys.exit(1)
 
-    print(f"[bold]Analyzing repository:[/] {abspath}")
+    print(f"[bold]Analyzing repository at[/] {abspath}")
+
+    repo_info = get_repo_info(abspath)
+    print(f"[bold]Remote URL:[/] {repo_info['url']}")
+    print(f"[bold]Current branch:[/] {repo_info['branch']}")
 
     if not commits:
-        print("[yellow]No external references found.[/]")
+        print("\n[yellow]No external references found.[/]")
 
     for sha, summary, refs in commits:
         print(f"\n[bold cyan]{sha[:7]}[/] - {summary}")
