@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "external-issue-checker"
 version = "0.1.0"
-description = "Lists commits in a Git repository referring to external issues"
+description = "Lists commits in a Git repository that refer to external issues"
 authors = ["Matthieu Viry <matthieu.viry@cnrs.fr>"]
 license = "MIT"
 packages = [{ include = "external_issue_checker", from = "src" }]
