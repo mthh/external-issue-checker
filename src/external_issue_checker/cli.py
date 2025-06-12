@@ -1,3 +1,4 @@
+import os
 import sys
 import typer
 from git import InvalidGitRepositoryError
@@ -12,7 +13,10 @@ app = typer.Typer(
 
 @app.command()
 def cli_scan(
-    path: str = typer.Argument(help="Path to the local Git repository to analyze"),
+    path: str = typer.Argument(
+        ".",
+        help="Path to the local Git repository to analyze",
+    ),
     token: str | None = typer.Option(
         None,
         "--token",
@@ -27,16 +31,22 @@ def cli_scan(
     For each reference found, queries the GitHub API to display the current
     status of the issue.
     """
+    if not os.path.isdir(path):
+        print(f"[red]Error: Path '{path}' is not a directory.[/]")
+        sys.exit(1)
+
+    abspath = os.path.abspath(path)
+
     try:
-        commits = get_commits_with_external_refs(path)
+        commits = get_commits_with_external_refs(abspath)
     except InvalidGitRepositoryError:
-        print(f"[red]Error: Invalid Git repository at {path}[/]")
+        print(f"[red]Error: Invalid or non-existent Git repository at {abspath}[/]")
         sys.exit(1)
     except Exception as e:
         print(f"[red]Unexpected error: {e}[/]")
         sys.exit(1)
 
-    print(f"[bold]Analyzing repository:[/] {path}")
+    print(f"[bold]Analyzing repository:[/] {abspath}")
 
     if not commits:
         print("[yellow]No external references found.[/]")
