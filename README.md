@@ -6,9 +6,9 @@ This tool is useful for tracking issues that are not managed within the reposito
 and for which a workaround may have been implemented in the codebase.
 
 For example sometimes you refer to an issue of another package in a commit
-(e.g. “Apply this workaround while waiting for repo/project#12 to be fixed”).
+(e.g. *“Apply some workaround while waiting for orga/project#12 to be fixed”*).
 In the meantime, maybe the issue has been resolved (and maybe you've redone a commit
-like "Remove the workaround now that repo/project#12 is fixed, or not).
+like *"Remove the workaround now that orga/project#12 is fixed"*, or not).
 
 It's time to check with `external-issue-checker`!
 
