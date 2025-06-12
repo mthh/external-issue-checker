@@ -2,7 +2,7 @@ from typing import Optional
 import httpx
 
 
-def check_issue_status(org: str, repo: str, issue: str, token: Optional[str] = None):
+def gh_check_issue_status(org: str, repo: str, issue: str, token: Optional[str] = None):
     headers = {"Authorization": f"token {token}"} if token else {}
     url = f"https://api.github.com/repos/{org}/{repo}/issues/{issue}"
     r = httpx.get(url, headers=headers)

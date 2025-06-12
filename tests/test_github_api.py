@@ -1,4 +1,4 @@
-from external_issue_checker.github_api import check_issue_status
+from external_issue_checker.github_api import gh_check_issue_status
 from httpx import Response, Request
 from unittest.mock import patch
 
@@ -14,5 +14,5 @@ def test_check_issue_status_ok(mock_get):
         },
         request=Request("GET", "https://api.github.com/"),
     )
-    status = check_issue_status("org", "repo", "1")
+    status = gh_check_issue_status("org", "repo", "1")
     assert status["state"] == "open"
