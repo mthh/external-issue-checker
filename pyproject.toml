@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "external-issue-checker"
+version = "0.1.0"
+description = "Lists commits in a Git repository referring to external issues"
+authors = ["Matthieu Viry <matthieu.viry@cnrs.fr>"]
+license = "MIT"
+packages = [{ include = "external_issue_checker", from = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+gitpython = "^3.1"
+typer = {extras = ["all"], version = "^0.16"}
+httpx = "^0.28"
+rich = "^14.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^8.2"
+pre-commit = "^4.2"
+
+[tool.poetry.scripts]
+external-issue-checker = "external_issue_checker.cli:app"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4.2.0"
+black = "^25.1.0"
+flake8 = "^7.2.0"
+mypy = "^1.16.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
