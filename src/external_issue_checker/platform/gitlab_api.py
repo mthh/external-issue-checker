@@ -19,7 +19,7 @@ def gl_check_status(
 def gl_check_issue_status(
     project_id: str, issue_iid: str, token: Optional[str] = None
 ) -> Union[IssueStatus, IssueStatusError]:
-    headers = {"Authorization": f"Bearer {token}"} if token else {}
+    headers = {"PRIVATE-TOKEN": f"{token}"} if token else {}
     url = (
         f"https://gitlab.com/api/v4/projects/"
         f"{urllib.parse.quote(project_id, safe='')}/issues/{issue_iid}"

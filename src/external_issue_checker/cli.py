@@ -20,11 +20,21 @@ def cli_scan(
         ".",
         help="Path to the local Git repository to analyze",
     ),
-    token: str | None = typer.Option(
+    gh_token: str | None = typer.Option(
         None,
-        "--token",
-        "-t",
-        help="Personal GitHub token to avoid API limitations.",
+        "--gh-token",
+        help=(
+            "Personal GitHub token to avoid API limitations or "
+            "access private repositories."
+        ),
+    ),
+    gl_token: str | None = typer.Option(
+        None,
+        "--gl-token",
+        help=(
+            "Personal GitLab token to avoid API limitations or "
+            "access private repositories."
+        ),
     ),
 ):
     """
@@ -62,7 +72,7 @@ def cli_scan(
         print(f"\n[bold cyan]{sha[:7]}[/] - {summary}")
         for platform, ref_type, org, repo, number in refs:
             if platform == Platform.GITHUB:
-                status = gh_check_status(ref_type, org, repo, number, token)
+                status = gh_check_status(ref_type, org, repo, number, gh_token)
                 if "error" in status:
                     print(f"  [red]❌ {org}/{repo}#{number}[/] → " f"{status['error']}")
                 else:
@@ -71,7 +81,7 @@ def cli_scan(
                         f"[bold]{status['state'].upper()}[/] - {status['title']}"
                     )
             elif platform == Platform.GITLAB:
-                status = gl_check_status(ref_type, repo, number, token)
+                status = gl_check_status(ref_type, repo, number, gl_token)
                 if "error" in status:
                     print(f"  [red]❌ {repo}#{number}[/] → " f"{status['error']}")
                 else:

@@ -22,7 +22,7 @@ def gh_check_status(
 def gh_check_issue_status(
     org: str, repo: str, number: str, token: Optional[str] = None
 ) -> IssueStatus | IssueStatusError:
-    headers = {"Authorization": f"token {token}"} if token else {}
+    headers = {"Authorization": f"Bearer {token}"} if token else {}
     url = f"https://api.github.com/repos/{org}/{repo}/issues/{number}"
     r = httpx.get(url, headers=headers)
     if r.status_code == 200:
