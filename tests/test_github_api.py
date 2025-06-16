@@ -1,6 +1,5 @@
 # type: ignore
-from external_issue_checker.platform import gh_check_issue_status
-
+from external_issue_checker.platform.github_api import gh_check_issue_status
 from httpx import Response, Request
 from unittest.mock import patch
 
