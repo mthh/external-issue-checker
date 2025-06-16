@@ -1,5 +1,8 @@
 # external-issue-checker
 
+[![License MIT](https://img.shields.io/badge/Licence-MIT-green)](./LICENSE)
+[![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
 **Lists commits in a Git repository that refer to external issues.**
 
 This tool is useful for tracking issues that are not managed within the repository itself
@@ -12,8 +15,8 @@ like *"Remove the workaround now that orga/project#12 is fixed"*, or not).
 
 It's time to check with `external-issue-checker`!
 
-Currently, it supports GitHub repositories/issues, but it might be extended to support other platforms
-(such as GitLab, Codeberg, etc.) in the future.
+Currently, it supports GitHub and GitLab issues and pull (or merge) requests, but it might be
+extended to support other platforms (such as Bitbucket, Codeberg, etc.) in the future.
 
 ## Demo
 
