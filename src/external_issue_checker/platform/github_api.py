@@ -10,7 +10,7 @@ def gh_check_status(
     repo: str,
     number: str,
     token: Optional[str] = None,
-) -> IssueStatus | IssueStatusError:
+):
     if ref_type == ReferenceType.ISSUE:
         return gh_check_issue_status(org, repo, number, token)
     elif ref_type == ReferenceType.PULL_REQUEST:
@@ -21,7 +21,7 @@ def gh_check_status(
 
 def gh_check_issue_status(
     org: str, repo: str, number: str, token: Optional[str] = None
-):
+) -> IssueStatus | IssueStatusError:
     headers = {"Authorization": f"token {token}"} if token else {}
     url = f"https://api.github.com/repos/{org}/{repo}/issues/{number}"
     r = httpx.get(url, headers=headers)

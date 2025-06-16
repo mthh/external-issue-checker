@@ -6,7 +6,7 @@ from rich import print
 
 from .parser import Platform
 from .git_utils import get_commits_with_external_refs, get_repo_info
-from .platform.github_api import gh_check_issue_status
+from .platform.github_api import gh_check_status
 from .platform.gitlab_api import gl_check_status
 
 app = typer.Typer(
@@ -60,9 +60,9 @@ def cli_scan(
 
     for sha, summary, refs in commits:
         print(f"\n[bold cyan]{sha[:7]}[/] - {summary}")
-        for platform, _type, org, repo, number in refs:
+        for platform, ref_type, org, repo, number in refs:
             if platform == Platform.GITHUB:
-                status = gh_check_issue_status(org, repo, number, token)
+                status = gh_check_status(ref_type, org, repo, number, token)
                 if "error" in status:
                     print(f"  [red]❌ {org}/{repo}#{number}[/] → " f"{status['error']}")
                 else:
@@ -71,7 +71,7 @@ def cli_scan(
                         f"[bold]{status['state'].upper()}[/] - {status['title']}"
                     )
             elif platform == Platform.GITLAB:
-                status = gl_check_status(_type, repo, number, token)
+                status = gl_check_status(ref_type, repo, number, token)
                 if "error" in status:
                     print(f"  [red]❌ {repo}#{number}[/] → " f"{status['error']}")
                 else:
