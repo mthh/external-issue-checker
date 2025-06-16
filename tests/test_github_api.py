@@ -1,9 +1,11 @@
-from external_issue_checker.github_api import gh_check_issue_status
+# type: ignore
+from external_issue_checker.platform import gh_check_issue_status
+
 from httpx import Response, Request
 from unittest.mock import patch
 
 
-@patch("external_issue_checker.github_api.httpx.get")
+@patch("external_issue_checker.platform.github_api.httpx.get")
 def test_check_issue_status_ok(mock_get):
     mock_get.return_value = Response(
         200,

@@ -3,8 +3,11 @@ import sys
 import typer
 from git import InvalidGitRepositoryError
 from rich import print
+
+from .parser import Platform
 from .git_utils import get_commits_with_external_refs, get_repo_info
-from .github_api import gh_check_issue_status
+from .platform.github_api import gh_check_issue_status
+from .platform.gitlab_api import gl_check_status
 
 app = typer.Typer(
     help="Scans commits for references to external GitHub issues.",
@@ -23,7 +26,7 @@ def cli_scan(
         "-t",
         help="Personal GitHub token to avoid API limitations.",
     ),
-) -> int:
+):
     """
     Scans the commits of a Git repository and detects references to external
     GitHub issues.
@@ -57,16 +60,25 @@ def cli_scan(
 
     for sha, summary, refs in commits:
         print(f"\n[bold cyan]{sha[:7]}[/] - {summary}")
-        for org, repo, issue in refs:
-            status = gh_check_issue_status(org, repo, issue, token)
-            if "error" in status:
-                print(f"  [red]❌ {org}/{repo}#{issue}[/] → " f"{status['error']}")
-            else:
-                print(
-                    f"  [green]✔ {org}/{repo}#{issue}[/] → "
-                    f"[bold]{status['state'].upper()}[/] - {status['title']}"
-                )
-
+        for platform, _type, org, repo, number in refs:
+            if platform == Platform.GITHUB:
+                status = gh_check_issue_status(org, repo, number, token)
+                if "error" in status:
+                    print(f"  [red]❌ {org}/{repo}#{number}[/] → " f"{status['error']}")
+                else:
+                    print(
+                        f"  [green]✔ {org}/{repo}#{number}[/] → "
+                        f"[bold]{status['state'].upper()}[/] - {status['title']}"
+                    )
+            elif platform == Platform.GITLAB:
+                status = gl_check_status(_type, repo, number, token)
+                if "error" in status:
+                    print(f"  [red]❌ {repo}#{number}[/] → " f"{status['error']}")
+                else:
+                    print(
+                        f"  [green]✔ {repo}#{number}[/] → "
+                        f"[bold]{status['state'].upper()}[/] - {status['title']}"
+                    )
     sys.exit(0)
 
 
