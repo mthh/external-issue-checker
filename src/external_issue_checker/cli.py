@@ -10,7 +10,7 @@ from .platform.github_api import gh_check_status
 from .platform.gitlab_api import gl_check_status
 
 app = typer.Typer(
-    help="Scans commits for references to external GitHub issues.",
+    help="Scans commits for references to external issues or pull requests.",
 )
 
 
@@ -39,10 +39,10 @@ def cli_scan(
 ):
     """
     Scans the commits of a Git repository and detects references to external
-    GitHub issues.
+    issues or pull requests.
 
-    For each reference found, queries the GitHub API to display the current
-    status of the issue.
+    For each reference found, queries the GitHub API or GitLab API
+    to display the current status of the issue or pull request.
     """
     if not os.path.isdir(path):
         print(f"[red]Error: Path '{path}' is not a directory.[/]")
