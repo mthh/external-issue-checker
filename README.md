@@ -50,6 +50,12 @@ Run the CLI tool:
 poetry run external-issue-checker --help
 ```
 
+Install pre-commit hooks:
+
+```bash
+poetry run pre-commit install
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
