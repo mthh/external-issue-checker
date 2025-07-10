@@ -10,9 +10,9 @@ the repository itself  and for which a workaround may have been implemented in t
 codebase.
 
 For example sometimes you refer to an issue of another package in a commit
-(e.g. *“Apply some workaround while waiting for orga/project#12 to be fixed”*).
+(e.g. *“Apply some workaround while waiting for https://github.com/orga/repository/issues/12 to be fixed”*).
 In the meantime, maybe the issue has been resolved (and maybe you've redone a commit
-like *"Remove the workaround now that orga/project#12 is fixed"*, or not).
+like *"Remove the workaround now that https://github.com/orga/repository/issues/12 is fixed"*, or not).
 
 It's time to check with `external-issue-checker`!
 
@@ -55,6 +55,17 @@ Install pre-commit hooks:
 ```bash
 poetry run pre-commit install
 ```
+
+## Motivation
+
+This tool was created to help developers keep track of external issues and pull requests
+that may affect their codebase. It allows you to quickly identify commits that reference
+external issues, making it easier to manage dependencies and workarounds.
+
+From a personal point of view, this is an opportunity to:
+
+- play with [`poetry`](https://python-poetry.org/) to stay up to date with how it works and how to store project metadata in the `pyproject.toml` file,
+- see how great [`rich`](https://github.com/Textualize/rich) and [`typer`](https://github.com/fastapi/typer) are for creating CLI tools.
 
 ## License
 
