@@ -1,10 +1,19 @@
-[tool.poetry]
+[project]
 name = "external-issue-checker"
 version = "0.1.0"
 description = "Lists commits in a Git repository that refer to external issues"
-authors = ["Matthieu Viry <matthieu.viry@cnrs.fr>"]
+authors = [{ name = "Matthieu Viry", email = "matthieu.viry@cnrs.fr" }]
 license = "MIT"
 packages = [{ include = "external_issue_checker", from = "src" }]
+dynamic = ["dependencies", "readme", "requires-python"]
+
+[project.scripts]
+external-issue-checker = "external_issue_checker.cli:app"
+
+[project.urls]
+homepage = "https://github.com/mthh/external-issue-checker"
+repository = "https://github.com/mthh/external-issue-checker"
+"Bug Tracker" = "https://github.com/mthh/external-issue-checker"
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -12,9 +21,6 @@ gitpython = "^3.1"
 typer = {extras = ["all"], version = "^0.16"}
 httpx = "^0.28"
 rich = "^14.0"
-
-[tool.poetry.scripts]
-external-issue-checker = "external_issue_checker.cli:app"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2"
