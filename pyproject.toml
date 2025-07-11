@@ -3,7 +3,7 @@ name = "external-issue-checker"
 version = "0.1.0"
 description = "Lists commits in a Git repository that refer to external issues"
 authors = [{ name = "Matthieu Viry", email = "matthieu.viry@cnrs.fr" }]
-license = "MIT"
+license = { text = "MIT" }
 packages = [{ include = "external_issue_checker", from = "src" }]
 dynamic = ["dependencies", "readme", "requires-python"]
 
