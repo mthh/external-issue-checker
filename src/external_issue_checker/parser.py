@@ -50,21 +50,19 @@ EXTERNAL_ISSUE_PATTERNS = [
     ),
 ]
 
-type ExternalIssue = List[
-    Tuple[
-        Platform,
-        ReferenceType,
-        str,
-        str,
-        str,
-    ]
-]
-
 
 def extract_external_issues(
     commit_message: str,
-) -> ExternalIssue:
-    found: ExternalIssue = []
+) -> List[Tuple[Platform, ReferenceType, str, str, str]]:
+    found: List[
+        Tuple[
+            Platform,
+            ReferenceType,
+            str,
+            str,
+            str,
+        ]
+    ] = []
     for pattern, platform, ref_type in EXTERNAL_ISSUE_PATTERNS:
         for match in pattern.finditer(commit_message):
             if platform == Platform.GITHUB:
