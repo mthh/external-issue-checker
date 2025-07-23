@@ -2,6 +2,7 @@
 
 [![License MIT](https://img.shields.io/badge/Licence-MIT-green)](./LICENSE)
 [![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![tests](https://github.com/mthh/external-issue-checker/actions/workflows/ci-tests.yml/badge.svg)](https://github.com/mthh/external-issue-checker/actions/workflows/ci-tests.yml)
 [![Python Version](https://img.shields.io/pypi/pyversions/external-issue-checker.svg)](https://pypi.org/project/external-issue-checker/)
 [![PyPI](https://img.shields.io/pypi/v/external-issue-checker.svg)](https://pypi.org/project/external-issue-checker/)
 
@@ -28,7 +29,7 @@ the future.
 
 ## Usage instructions
 
-To use the tool, you need to have Python 3.8 or later installed on your system.
+To use the tool, you need to have Python 3.10 or later installed on your system.
 
 One of the easiest ways to install and run global Python CLI tools is either to use:
 
@@ -76,6 +77,13 @@ poetry run external-issue-checker --help
 
 ## Instructions for developers
 
+Clone the repository:
+
+```bash
+git clone https://github.com/mthh/external-issue-checker
+cd external-issue-checker
+```
+
 Install the dependencies:
 
 ```bash
@@ -94,16 +102,16 @@ Run the test suite:
 poetry run pytest
 ```
 
-Run the CLI tool:
-
-```bash
-poetry run external-issue-checker --help
-```
-
 Install pre-commit hooks:
 
 ```bash
 poetry run pre-commit install
+```
+
+Run the CLI tool:
+
+```bash
+poetry run external-issue-checker --help
 ```
 
 ## Motivation
