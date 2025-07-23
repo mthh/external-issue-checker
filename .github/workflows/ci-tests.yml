@@ -1,0 +1,56 @@
+name: tests
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.gitignore'
+      - '**.md'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '.gitignore'
+      - '**.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python_version: [
+            '3.9',
+            '3.10',
+            '3.11',
+            '3.12',
+            '3.13',
+            'pypy3.9',
+            'pypy3.10',
+        ]
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python_version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python_version }}
+        cache: pip
+
+    - uses: actions/cache@v4
+      with:
+        path: ~/.cache/pre-commit
+        key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        poetry --version
+
+    - name: Install dependencies
+      run: |
+        poetry install --with dev
+
+    - name: Style & lint checks
+      run: |
+        poetry run pre-commit run --all-files --color=always
