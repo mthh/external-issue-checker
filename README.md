@@ -2,12 +2,14 @@
 
 [![License MIT](https://img.shields.io/badge/Licence-MIT-green)](./LICENSE)
 [![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Python Version](https://img.shields.io/pypi/pyversions/external-issue-checker.svg)](https://pypi.org/project/external-issue-checker/)
+[![PyPI](https://img.shields.io/pypi/v/external-issue-checker.svg)](https://pypi.org/project/external-issue-checker/)
 
-**Lists commits in a Git repository that refer to external issues / pull requests.**
+**Lists commits in a Git repository that refer to external issues / pull requests and reports their status.**
 
-This tool is useful for tracking issues and pull requests that are not managed within
-the repository itself  and for which a workaround may have been implemented in the
-codebase.
+This tool is useful for tracking issues and pull requests (that are not managed within
+the repository itself and for which a workaround may have been implemented in the
+codebase) and reporting their status (*open* or *closed*).
 
 For example sometimes you refer to an issue of another package in a commit
 (e.g. *“Apply some workaround while waiting for https://github.com/orga/repository/issues/12 to be fixed”*).
@@ -23,6 +25,54 @@ the future.
 ## Demo
 
 ![Demo showing terminal being recorded](./misc/demo.svg)
+
+## Usage instructions
+
+To use the tool, you need to have Python 3.8 or later installed on your system.
+
+One of the easiest ways to install and run global Python CLI tools is either to use:
+
+- [`pipx`](https://github.com/pypa/pipx)
+
+```bash
+# Install external-issue-checker globally
+pipx install external-issue-checker
+
+# Run the CLI tool
+external-issue-checker --help
+```
+
+- or [`uv`](https://github.com/astral-sh/uv?tab=readme-ov-file#tools)
+
+```bash
+# Install external-issue-checker globally if you don't have it yet
+# and run the CLI tool (uvx is an alias for uv tool run)
+uvx external-issue-checker --help
+```
+
+Otherwise, you can install it in a virtual environment using either:
+
+- `pip`
+
+```bash
+mkdir some-directory
+cd some-directory
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows use `.venv\Scripts\activate`
+pip install external-issue-checker
+
+external-issue-checker --help
+```
+
+- or [`poetry`](https://python-poetry.org/)
+
+```bash
+poetry new --src some-directory
+cd some-directory
+poetry add external-issue-checker
+
+poetry run external-issue-checker --help
+```
 
 ## Instructions for developers
 
